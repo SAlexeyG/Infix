@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace Program
 {
@@ -12,6 +13,8 @@ namespace Program
             interpreter.AddOperator(new Operator() { symbol = "*", priority = 2, function = (a, b) => a * b });
             interpreter.AddOperator(new Operator() { symbol = "/", priority = 2, function = (a, b) => a / b });
             interpreter.AddOperator(new Operator() { symbol = "^", priority = 3, function = (a, b) => Math.Pow(a, b) });
+
+            var format = new CultureInfo("en-US");
 
             if(args.Contains("-test"))
             {
@@ -43,7 +46,7 @@ namespace Program
                 System.Console.WriteLine($"{"Expression",-40} | {"Computed result", -20} | {"Right result", -20}");
                 System.Console.WriteLine("----------------------------------------------------------------------------------------------------");
                 foreach(var exp in expresstions)
-                    System.Console.WriteLine($"{exp[0], -40} | {interpreter.ExecuteInfix(exp[0]), -20} | {exp[1], -20}");
+                    System.Console.WriteLine($"{exp[0], -40} | {Convert.ToString(interpreter.ExecuteInfix(exp[0]), format), -20} | {exp[1], -20}");
             }
 
             while(true)
@@ -51,7 +54,7 @@ namespace Program
                 System.Console.Write("Enter expression: ");
                 var exp = Console.ReadLine();
                 if(exp == null || exp == "") break;
-                System.Console.WriteLine(exp + " = " + interpreter.ExecuteInfix(exp));
+                System.Console.WriteLine(exp + " = " + Convert.ToString(interpreter.ExecuteInfix(exp), format));
             }
            
 
