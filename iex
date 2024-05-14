@@ -1,0 +1,1 @@
+docker run -it --mount type=bind,source=G:\Workspace\Programming\C#\Infix\,target=/app mynvim
